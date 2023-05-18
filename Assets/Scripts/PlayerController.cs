@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         _move = _move.normalized;
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;

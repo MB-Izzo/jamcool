@@ -44,6 +44,15 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbdfa004-0458-4d60-9902-d6273c591267"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +143,17 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68c06511-e59b-4a82-8c87-74e1de7dc838"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -163,6 +183,15 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
                     ""name"": ""Confirm"",
                     ""type"": ""Button"",
                     ""id"": ""c0a3779f-30f0-488e-9952-e1788fae40a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b07b0919-c4a7-4d56-9eb7-5dd259896883"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -198,8 +227,30 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e747075-91c0-41d6-a5ac-6fc3404afa07"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""828891c6-2761-4deb-82b7-59f258beeae0"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -218,11 +269,13 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
         m_World = asset.FindActionMap("World", throwIfNotFound: true);
         m_World_Move = m_World.FindAction("Move", throwIfNotFound: true);
         m_World_Interact = m_World.FindAction("Interact", throwIfNotFound: true);
+        m_World_Attack = m_World.FindAction("Attack", throwIfNotFound: true);
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_Right = m_Combat.FindAction("Right", throwIfNotFound: true);
         m_Combat_Left = m_Combat.FindAction("Left", throwIfNotFound: true);
         m_Combat_Confirm = m_Combat.FindAction("Confirm", throwIfNotFound: true);
+        m_Combat_Attack = m_Combat.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -286,12 +339,14 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
     private List<IWorldActions> m_WorldActionsCallbackInterfaces = new List<IWorldActions>();
     private readonly InputAction m_World_Move;
     private readonly InputAction m_World_Interact;
+    private readonly InputAction m_World_Attack;
     public struct WorldActions
     {
         private @WorldControls m_Wrapper;
         public WorldActions(@WorldControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_World_Move;
         public InputAction @Interact => m_Wrapper.m_World_Interact;
+        public InputAction @Attack => m_Wrapper.m_World_Attack;
         public InputActionMap Get() { return m_Wrapper.m_World; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -307,6 +362,9 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(IWorldActions instance)
@@ -317,6 +375,9 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(IWorldActions instance)
@@ -341,6 +402,7 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Combat_Right;
     private readonly InputAction m_Combat_Left;
     private readonly InputAction m_Combat_Confirm;
+    private readonly InputAction m_Combat_Attack;
     public struct CombatActions
     {
         private @WorldControls m_Wrapper;
@@ -348,6 +410,7 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
         public InputAction @Right => m_Wrapper.m_Combat_Right;
         public InputAction @Left => m_Wrapper.m_Combat_Left;
         public InputAction @Confirm => m_Wrapper.m_Combat_Confirm;
+        public InputAction @Attack => m_Wrapper.m_Combat_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -366,6 +429,9 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
             @Confirm.started += instance.OnConfirm;
             @Confirm.performed += instance.OnConfirm;
             @Confirm.canceled += instance.OnConfirm;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(ICombatActions instance)
@@ -379,6 +445,9 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
             @Confirm.started -= instance.OnConfirm;
             @Confirm.performed -= instance.OnConfirm;
             @Confirm.canceled -= instance.OnConfirm;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(ICombatActions instance)
@@ -409,11 +478,13 @@ public partial class @WorldControls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface ICombatActions
     {
         void OnRight(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
 }
