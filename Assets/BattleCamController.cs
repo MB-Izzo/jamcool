@@ -42,4 +42,5 @@ public class BattleCamController : MonoBehaviour
             enemies[1].GetComponent<EnemyBattler>().ToggleTarget();
         }
     }
+
 }
