@@ -55,6 +55,8 @@ public class BattleSystem : MonoBehaviour
     public Action<EnemyBattler> OnSelectedEnemyChanged;
     public Action<int> OnEnemyHit;
 
+    public AudioManager audio;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -85,6 +87,7 @@ public class BattleSystem : MonoBehaviour
         {
             return;
         }
+        audio.confirm.Play();
         _battleState= BattleState.PLAYER_ATTACKING;
         OnStateChange?.Invoke(_battleState);
 
@@ -192,6 +195,11 @@ public class BattleSystem : MonoBehaviour
             player.hp -= GetNextEnemy().dmg;
             
         }
+    }
+
+    public void SoundHit()
+    {
+        audio.punch.Play();
     }
 
     private void ComputeNextTurn()
