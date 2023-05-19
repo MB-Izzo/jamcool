@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 12.129364, g: 23.238434, b: 51.7312, a: 1}
+  m_IndirectSpecularColor: {r: 12.696274, g: 26.146576, b: 70.19531, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1919,6 +1919,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f10b42725d80d5347ac38a427d32dbc2, type: 2}
     - {fileID: 11400000, guid: 8f01345768e67544fa8eded45d2dcff0, type: 2}
     - {fileID: 11400000, guid: adb9cc482dc62e54eb7050a92a3e9e9f, type: 2}
+    - {fileID: 11400000, guid: 286729c0bc1382145a19f72dbf114755, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -1981,6 +1982,20 @@ MonoBehaviour:
         - m_Target: {fileID: 715979242}
           m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
           m_MethodName: TakeHit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 715979242}
+          m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+          m_MethodName: SoundHit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3241,7 +3256,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512108560}
-  m_LocalRotation: {x: 0.063779436, y: -0.23903854, z: 0.015736965, w: 0.9687854}
+  m_LocalRotation: {x: 0.06377941, y: -0.23903856, z: 0.015736962, w: 0.9687854}
   m_LocalPosition: {x: 2.322, y: 0.92, z: -3.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4404,7 +4419,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815954174}
-  m_LocalRotation: {x: 0.063779436, y: -0.23903854, z: 0.015736965, w: 0.9687854}
+  m_LocalRotation: {x: 0.06377941, y: -0.23903856, z: 0.015736962, w: 0.9687854}
   m_LocalPosition: {x: 2.322, y: 0.92, z: -3.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
