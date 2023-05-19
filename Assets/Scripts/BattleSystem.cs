@@ -1,5 +1,6 @@
 using Cinemachine;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,12 @@ public class BattleSystem : MonoBehaviour
     [SerializeField]
     private int _enemiesAction = 2;
 
+    public Action<bool> StartPlayerTurn;
+
+    public Action<BattleState> OnStateChange;
+
+    public Action<EnemyBattler> OnSelectedEnemyChanged;
+    public Action<int> OnEnemyHit;
 
     private void Awake()
     {
@@ -66,6 +73,12 @@ public class BattleSystem : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Start()
+    {
+        if (StartPlayerTurn != null) StartPlayerTurn(true);
+        OnStateChange?.Invoke(_battleState);
+    }
+
     private void AttackAction()
     {
         if (_battleState != BattleState.PLAYER_TURN)
@@ -73,6 +86,7 @@ public class BattleSystem : MonoBehaviour
             return;
         }
         _battleState= BattleState.PLAYER_ATTACKING;
+        OnStateChange?.Invoke(_battleState);
 
         foreach (var playableAssetOutput in cine.playableAsset.outputs)
         {
@@ -107,13 +121,22 @@ public class BattleSystem : MonoBehaviour
         {
             player.transform.position = player.initialPos;
             player.transform.DOLookAt(player.initialPos, 0.0f, AxisConstraint.Y);
+            if (_playerAction == 1)
+            {
+                if (StartPlayerTurn != null) StartPlayerTurn(false);
+            }
         }
         else if (_battleState == BattleState.ENEMY_ATTACKING)
         {
             GetNextEnemy().transform.position = GetNextEnemy().initialPos;
             GetNextEnemy().transform.DOLookAt(player.initialPos, 0.0f, AxisConstraint.Y);
-
+            if (_enemiesAction == 1)
+            {
+                if (StartPlayerTurn != null) StartPlayerTurn(true);
+            }
         }
+
+        
     }
 
     public void SetRotationTowardEnemy()
@@ -136,11 +159,13 @@ public class BattleSystem : MonoBehaviour
         {
             _playerAction--;
             _battleState = BattleState.PLAYER_TURN;
+            OnStateChange?.Invoke(_battleState);
         }
         else if (_battleState == BattleState.ENEMY_ATTACKING)
         {
             _enemiesAction--;
             _battleState = BattleState.ENEMY_TURN;
+            OnStateChange?.Invoke(_battleState);
         }
         ComputeNextTurn();
     }
@@ -150,6 +175,7 @@ public class BattleSystem : MonoBehaviour
         if (_battleState == BattleState.PLAYER_ATTACKING)
         {
             GetSelectedEnemy().hp -= player.dmg;
+            OnEnemyHit?.Invoke(GetSelectedEnemy().hp);
             if (GetSelectedEnemy().hp <= 0)
             {
                 Destroy(GetSelectedEnemy().gameObject);
@@ -173,6 +199,7 @@ public class BattleSystem : MonoBehaviour
         if (_playerAction == 0 && _battleState != BattleState.ENEMY_TURN)
         {
             _battleState = BattleState.ENEMY_TURN;
+            OnStateChange?.Invoke(_battleState);
             _enemiesAction = 2;
         }
 
@@ -181,7 +208,9 @@ public class BattleSystem : MonoBehaviour
             _playingEnemyIdx++;
             if (_enemiesAction > 0)
             {
+
                 _battleState = BattleState.ENEMY_ATTACKING;
+                OnStateChange?.Invoke(_battleState);
                 foreach (var playableAssetOutput in cine.playableAsset.outputs)
                 {
                     if (playableAssetOutput.streamName == "AttackerTrack")
@@ -199,7 +228,9 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                //if (StartPlayerTurn != null) StartPlayerTurn(true);
                 _battleState = BattleState.PLAYER_TURN;
+                OnStateChange?.Invoke(_battleState);
                 _playerAction = 2;
             }
         }
@@ -226,6 +257,7 @@ public class BattleSystem : MonoBehaviour
         _selectedEnemyIdx++;
         camTargetGroup.AddMember(GetSelectedEnemy().transform, 1f, 0f);
         GetSelectedEnemy().ToggleTarget();
+        OnSelectedEnemyChanged?.Invoke(GetSelectedEnemy());
     }
 
     private void SelectPreviousEnemy()
@@ -240,5 +272,6 @@ public class BattleSystem : MonoBehaviour
         _selectedEnemyIdx++;
         camTargetGroup.AddMember(GetSelectedEnemy().transform, 1f, 0f);
         GetSelectedEnemy().ToggleTarget();
+        OnSelectedEnemyChanged?.Invoke(GetSelectedEnemy());
     }
 }
