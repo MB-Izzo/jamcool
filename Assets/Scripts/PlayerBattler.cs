@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class PlayerBattler : MonoBehaviour
 {
@@ -14,11 +15,13 @@ public class PlayerBattler : MonoBehaviour
     public Action OnLeftAction;
     public Action OnAttackAction;
 
-    public Transform[] enemies;
 
-    private Vector3 _initialPos;
+    public Vector3 initialPos;
+    public Transform runTargetPos;
 
-    public PlayableDirector cine;
+    public int hp;
+    public int dmg;
+
 
     void Start()
     {
@@ -27,7 +30,7 @@ public class PlayerBattler : MonoBehaviour
         _input.Combat.Right.performed += OnRight;
         _input.Combat.Left.performed += OnLeft;
         _input.Combat.Confirm.performed += OnAttack;
-        _initialPos = transform.position;
+        initialPos = transform.position;
     }
 
     // Update is called once per frame
@@ -48,18 +51,6 @@ public class PlayerBattler : MonoBehaviour
     private void OnAttack(InputAction.CallbackContext ctx)
     {
         if (OnAttackAction != null) OnAttackAction();
-        cine.enabled = true;
-        Debug.Log("test");
-    }
 
-    public void MoveToPos()
-    {
-        transform.DOMove(enemies[0].transform.position, 0.8f);
-    }
-    public void ResetPlayerPos()
-    {
-        transform.position = _initialPos;
-        cine.enabled = false;
-        cine.time = 0;
     }
 }

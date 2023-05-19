@@ -24,23 +24,29 @@ public class BattleCamController : MonoBehaviour
 
     public void OnRight()
     {
-        if (targetGroup.m_Targets[1].target.gameObject == enemies[0])
+/*        if (targetGroup.m_Targets[1].target.gameObject == enemies[0])
         {
-            targetGroup.RemoveMember(enemies[0].transform);
-            targetGroup.AddMember(enemies[1].transform, 1f, 0f);
+
+            targetGroup.RemoveMember(BattleSystem.Instance.enemies[0].transform);
+            targetGroup.AddMember(BattleSystem.Instance.enemies[1].transform, 1f, 0f);
             enemies[0].GetComponent<EnemyBattler>().ToggleTarget();
             enemies[1].GetComponent<EnemyBattler>().ToggleTarget();
         }
-    }
+*/    }
     public void OnLeft()
     {
-        if (targetGroup.m_Targets[1].target.gameObject == enemies[1])
+/*        if (targetGroup.m_Targets[2].target.gameObject == enemies[1])
         {
-            targetGroup.RemoveMember(enemies[1].transform);
-            targetGroup.AddMember(enemies[0].transform, 1f, 0f);
-            enemies[0].GetComponent<EnemyBattler>().ToggleTarget();
+            targetGroup.RemoveMember(enemies[2].transform);
+            targetGroup.AddMember(enemies[1].transform, 1f, 0f);
             enemies[1].GetComponent<EnemyBattler>().ToggleTarget();
+            enemies[2].GetComponent<EnemyBattler>().ToggleTarget();
         }
+*/    }
+
+    private void GetEnemyByIdx(int idx)
+    {
+
     }
 
 }

@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBattler : MonoBehaviour
+public class Battler : MonoBehaviour
 {
-    public SpriteRenderer targetSprite;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +14,5 @@ public class EnemyBattler : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void ToggleTarget()
-    {
-        targetSprite.enabled = !targetSprite.enabled;
     }
 }
