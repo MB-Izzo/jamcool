@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 12.101517, g: 23.20163, b: 51.660767, a: 1}
+  m_IndirectSpecularColor: {r: 12.661026, g: 26.10022, b: 70.115234, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8222,7 +8222,7 @@ PrefabInstance:
     - target: {fileID: -8143710011712545758, guid: 174294605f4abbe4c8891021b23a7df8, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 9b77fa8f090020948b73ce568471cbfa, type: 2}
+      objectReference: {fileID: 2100000, guid: 4cd84d6bb813914458b844d8abdd1fda, type: 2}
     - target: {fileID: 919132149155446097, guid: 174294605f4abbe4c8891021b23a7df8, type: 3}
       propertyPath: m_Name
       value: building_02 (17)
@@ -11755,7 +11755,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512108560}
-  m_LocalRotation: {x: 0.06377943, y: -0.23903863, z: 0.015736973, w: 0.96878535}
+  m_LocalRotation: {x: 0.06377941, y: -0.23903866, z: 0.015736971, w: 0.96878535}
   m_LocalPosition: {x: 3.595395, y: -4.73361, z: -32.89488}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13417,7 +13417,7 @@ PrefabInstance:
     - target: {fileID: -8143710011712545758, guid: 174294605f4abbe4c8891021b23a7df8, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 9b77fa8f090020948b73ce568471cbfa, type: 2}
+      objectReference: {fileID: 2100000, guid: ec452b35a111c9a438eba0c526a9e6b8, type: 2}
     - target: {fileID: 919132149155446097, guid: 174294605f4abbe4c8891021b23a7df8, type: 3}
       propertyPath: m_Name
       value: building_02 (22)
@@ -14185,7 +14185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815954174}
-  m_LocalRotation: {x: 0.06377943, y: -0.23903863, z: 0.015736973, w: 0.96878535}
+  m_LocalRotation: {x: 0.06377941, y: -0.23903866, z: 0.015736971, w: 0.96878535}
   m_LocalPosition: {x: 3.595395, y: -4.73361, z: -32.89488}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15326,7 +15326,7 @@ PrefabInstance:
     - target: {fileID: -8143710011712545758, guid: 174294605f4abbe4c8891021b23a7df8, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 9b77fa8f090020948b73ce568471cbfa, type: 2}
+      objectReference: {fileID: 2100000, guid: f16d07c98018d6d46ada7f7d40a7c0c2, type: 2}
     - target: {fileID: 919132149155446097, guid: 174294605f4abbe4c8891021b23a7df8, type: 3}
       propertyPath: m_Name
       value: building_02 (18)
